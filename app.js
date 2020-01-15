@@ -18,6 +18,7 @@ const {
     update
 } = require('./helpers/helpers.js');
 
+// Hallo
 const sayang = 'c_jessijkt48';
 
 let like  = async () => {
