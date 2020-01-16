@@ -1,8 +1,8 @@
 module.exports = {
-	client: 'postgres',
+	client: 'pg',
 	connection: {
 		multipleStatements: true,
-		host: process.env.HOST,
+		host: process.env.SOCKET_PATH,
 		database: process.env.DATABASE,
 		user: process.env.USERNAME,
 		password: process.env.PASSWORD,

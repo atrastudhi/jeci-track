@@ -1,3 +1,5 @@
+const app = require('express')();
+
 require('dotenv').config();
 
 const toBase64 = require('base64-arraybuffer');
@@ -18,7 +20,6 @@ const {
     update
 } = require('./helpers/helpers.js');
 
-// Hallo
 const sayang = 'c_jessijkt48';
 
 let like  = async () => {
@@ -156,30 +157,6 @@ let following = async () => {
                 await tweeting(`(Following Lagi) @${followingList[i].screen_name}`);
             }
         }
-    
-        let followingDB = await unfollow();
-    
-        for (let j = 0; j < followingDB.length; j++) {
-            let check = true;
-    
-            for (let k = 0; k < followingList.length; k++) {
-    
-                if (followingDB[j].user_id == followingList[k].id_str) {
-                    check = false;
-                }
-    
-            }
-    
-            if (check) {
-                await update('following', {
-                    user_id: followingDB[j].user_id
-                }, {
-                    unfollowed: true
-                });
-    
-                await tweeting(`(Unfollowing) @${followingDB[j].screen_name}`);
-            }
-        }
     } catch (err) {
         console.log(err);
     }
@@ -196,16 +173,28 @@ let main = async () => {
     console.log('====================================== END ======================================');
 };
 
-(async() => {
+app.get('/main', async (req, res) => {
     await main();
     await like();
+    res.status(200).json({
+        msg: 'jeci lucu banget yaampun'
+    })
+})
+
+app.listen(1212, () => {
+    console.log('app listen on 1212...')
+})
+
+// (async() => {
+//     await main();
+//     await like();
     
-    setInterval(async () => {
-        await main();
-    }, 1000*60*1);
+//     setInterval(async () => {
+//         await main();
+//     }, 1000*60*1);
     
-    setInterval(async () => {
-        console.log('running like...')
-        await like();
-    }, 1000*20*1);
-})();
+//     setInterval(async () => {
+//         console.log('running like...')
+//         await like();
+//     }, 1000*20*1);
+// })();
